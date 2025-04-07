@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Bowling du Sahara</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="menu" class="screen active">
+        <h1>Bowling du Sahara</h1>
+        <div class="menu-content">
+            <input type="text" id="playerName" placeholder="Votre nom">
+            <select id="difficulty">
+                <option value="easy">Facile</option>
+                <option value="medium">Moyen</option>
+                <option value="hard">Difficile</option>
+            </select>
+            <button id="startGame">Jouer</button>
+            <div id="highScore">Meilleur score: 0</div>
+        </div>
+    </div>
+
+    <div id="game" class="screen">
+        <div id="scoreBoard">Score: <span id="currentScore">0</span></div>
+        <canvas id="gameCanvas"></canvas>
+        <div class="button-container">
+            <button id="throwBall">Lancer la boule</button>
+            <button id="backToMenu">Menu principal</button>
+        </div>
+        <div id="shots">Tirs restants: 3</div>
+    </div>
+</body>
+<script src="game.js"></script>
+</html>
