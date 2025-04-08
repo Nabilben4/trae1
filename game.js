@@ -149,6 +149,36 @@ class BowlingGame {
         this.drawGame();
     }
 
+    setupPins() {
+        this.pins = [];
+        const pinRows = 4;
+        const spacing = 40;
+        const startX = this.canvas.width - 100;
+        const startY = this.canvas.height / 2;
+
+        for (let row = 0; row < pinRows; row++) {
+            for (let pin = 0; pin <= row; pin++) {
+                this.pins.push({
+                    x: startX - (row * spacing),
+                    y: startY + ((row/2 - pin) * spacing),
+                    radius: 10,
+                    isStanding: true
+                });
+            }
+        }
+    }
+
+    celebrateVictory() {
+        this.ctx.fillStyle = '#00ff95';
+        this.ctx.font = '30px "Press Start 2P"';
+        this.ctx.textAlign = 'center';
+        this.ctx.fillText('VICTOIRE !', this.canvas.width/2, this.canvas.height/2);
+        
+        setTimeout(() => {
+            this.resetGame();
+        }, 2000);
+    }
+
     animateBall() {
         this.ball.x += this.ball.speed;
         this.checkCollisions();
@@ -166,7 +196,11 @@ class BowlingGame {
                     this.ball.isAiming = true;
                     this.powerMeter.current = 0;
                 } else {
-                    setTimeout(() => this.resetGame(), 2000);
+                    if (this.pins.every(pin => !pin.isStanding)) {
+                        this.celebrateVictory();
+                    } else {
+                        setTimeout(() => this.resetGame(), 2000);
+                    }
                 }
             }, 1000);
         }
@@ -186,25 +220,6 @@ class BowlingGame {
                 }
             }
         });
-    }
-
-    setupPins() {
-        this.pins = [];
-        const pinRows = 4;
-        const spacing = 40;
-        const startX = this.canvas.width - 100;
-        const startY = this.canvas.height / 2;
-
-        for (let row = 0; row < pinRows; row++) {
-            for (let pin = 0; pin <= row; pin++) {
-                this.pins.push({
-                    x: startX - (row * spacing),
-                    y: startY - (row * spacing / 2) + (pin * spacing),
-                    radius: 10,
-                    isStanding: true
-                });
-            }
-        }
     }
 
     initializeGame() {
